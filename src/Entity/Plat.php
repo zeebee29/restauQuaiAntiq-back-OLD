@@ -32,8 +32,11 @@ class Plat
     #[ORM\ManyToMany(targetEntity: Menu::class, mappedBy: 'plats')]
     private Collection $menus;
 
-    #[ORM\ManyToOne(inversedBy: 'plat')]
-    private ?Carte $carte = null;
+    #[ORM\Column]
+    private ?bool $inCarte = null;
+
+    //    #[ORM\ManyToOne(inversedBy: 'plat')]
+    //    private ?Carte $carte = null;
 
     public function __construct()
     {
@@ -120,7 +123,7 @@ class Plat
         return $this;
     }
 
-    public function getCarte(): ?Carte
+    /*    public function getCarte(): ?Carte
     {
         return $this->carte;
     }
@@ -128,6 +131,19 @@ class Plat
     public function setCarte(?Carte $carte): self
     {
         $this->carte = $carte;
+
+        return $this;
+    }
+*/
+
+    public function isInCarte(): ?bool
+    {
+        return $this->inCarte;
+    }
+
+    public function setInCarte(bool $inCarte): self
+    {
+        $this->inCarte = $inCarte;
 
         return $this;
     }
