@@ -7,8 +7,8 @@ Description :
 Installation:
 * git clone
 * composer install
-(* démarrage serveur database)
-(* php bin/console doctrine:database:create)
+* (démarrage serveur database)
+* (php bin/console doctrine:database:create)
 * pour données fictives initiales : php bin/console doctrine:fixtures:load
 
 Utilisation:
