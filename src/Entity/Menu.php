@@ -2,29 +2,30 @@
 
 namespace App\Entity;
 
-use App\Repository\CategorieRepository;
+use App\Repository\MenuRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CategorieRepository::class)]
-class Categorie
+#[ORM\Entity(repositoryClass: MenuRepository::class)]
+class Menu
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 50)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $titreMenu = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $description = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $titreCarte = null;
+    #[ORM\Column(type: Types::DECIMAL, precision: 4, scale: 2)]
+    private ?string $prix = null;
 
-    #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Plat::class)]
+    #[ORM\ManyToMany(targetEntity: Plat::class, inversedBy: 'menus')]
     private Collection $plats;
 
     public function __construct()
@@ -49,26 +50,26 @@ class Categorie
         return $this;
     }
 
-    public function getTitreMenu(): ?string
+    public function getDescription(): ?string
     {
-        return $this->titreMenu;
+        return $this->description;
     }
 
-    public function setTitreMenu(string $titreMenu): self
+    public function setDescription(?string $description): self
     {
-        $this->titreMenu = $titreMenu;
+        $this->description = $description;
 
         return $this;
     }
 
-    public function getTitreCarte(): ?string
+    public function getPrix(): ?string
     {
-        return $this->titreCarte;
+        return $this->prix;
     }
 
-    public function setTitreCarte(string $titreCarte): self
+    public function setPrix(string $prix): self
     {
-        $this->titreCarte = $titreCarte;
+        $this->prix = $prix;
 
         return $this;
     }
@@ -85,7 +86,6 @@ class Categorie
     {
         if (!$this->plats->contains($plat)) {
             $this->plats->add($plat);
-            $plat->setCategorie($this);
         }
 
         return $this;
@@ -93,12 +93,7 @@ class Categorie
 
     public function removePlat(Plat $plat): self
     {
-        if ($this->plats->removeElement($plat)) {
-            // set the owning side to null (unless already changed)
-            if ($plat->getCategorie() === $this) {
-                $plat->setCategorie(null);
-            }
-        }
+        $this->plats->removeElement($plat);
 
         return $this;
     }
