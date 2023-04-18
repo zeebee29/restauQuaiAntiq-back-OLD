@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\OuvertureHebdoRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: OuvertureHebdoRepository::class)]
 class OuvertureHebdo
@@ -15,6 +17,7 @@ class OuvertureHebdo
     private ?int $id = null;
 
     #[ORM\Column(length: 10)]
+    #[Assert\Choice(choices: ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"])]
     private ?string $jourSemaine = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
