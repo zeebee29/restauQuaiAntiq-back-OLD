@@ -21,10 +21,10 @@ class OuvertureHebdo
     private ?string $jourSemaine = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $h_ouverture = null;
+    private ?\DateTimeImmutable $h_ouverture = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $h_fermeture = null;
+    private ?\DateTimeImmutable $h_fermeture = null;
 
     public function getId(): ?int
     {
@@ -43,24 +43,24 @@ class OuvertureHebdo
         return $this;
     }
 
-    public function getHOuverture(): ?\DateTimeInterface
+    public function getHOuverture(): ?\DateTimeImmutable
     {
         return $this->h_ouverture;
     }
 
-    public function setHOuverture(\DateTimeInterface $h_ouverture): self
+    public function setHOuverture(\DateTimeImmutable $h_ouverture): self
     {
         $this->h_ouverture = $h_ouverture;
 
         return $this;
     }
 
-    public function getHFermeture(): ?\DateTimeInterface
+    public function getHFermeture(): ?\DateTimeImmutable
     {
         return $this->h_fermeture;
     }
 
-    public function setHFermeture(\DateTimeInterface $h_fermeture): self
+    public function setHFermeture(\DateTimeImmutable $h_fermeture): self
     {
         $this->h_fermeture = $h_fermeture;
 

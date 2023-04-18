@@ -2,21 +2,21 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\OuvertureHebdo;
 use App\Entity\Reservation;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use DateTimeInterface;
 
-class ReservationFixtures extends Fixture implements DependentFixtureInterface
+class ReservationFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
         $resaExamples = [
-            [new DateTimeInterface('2023-07-17 12:45:00'), 2, null, new DateTimeInterface('2023-04-18 14:30:00'), null,],
-            [new DateTimeInterface('2020-06-03 21:00:00'), 5, new DateTimeInterface('2023-04-18 14:31:00'), null,],
-            [new DateTimeInterface('2020-01-01 12:00:00'), 7, new DateTimeInterface('2020-04-18 14:31:00'), null,],
+            [new DateTimeImmutable('2023-07-17 12:45:00'), 2, null, new DateTimeImmutable('2023-04-18 14:30:00'), null,],
+            [new DateTimeImmutable('2020-06-03 21:00:00'), 5, null, new DateTimeImmutable('2023-04-18 14:31:00'), null,],
+            [new DateTimeImmutable('2020-01-01 12:00:00'), 7, null, new DateTimeImmutable('2020-04-18 14:31:00'), null,],
         ];
 
         foreach ($resaExamples as [$dateResa, $nbConvive, $allergie, $createdAt, $modifAt]) {
@@ -25,17 +25,9 @@ class ReservationFixtures extends Fixture implements DependentFixtureInterface
             $resa->setNbConvive($nbConvive);
             $resa->setAllergie($allergie);
             $resa->setCreatedAt($createdAt);
-            $resa->setModifiedAt($modifAt);
+            //$resa->setModifiedAt($modifAt);
             $manager->persist($resa);
         }
         $manager->flush();
-    }
-
-
-    public function getDependencies()
-    {
-        return [
-            OuvertureHebdo::class,
-        ];
     }
 }
