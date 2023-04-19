@@ -45,7 +45,7 @@ class UserFixtures extends Fixture
             $user->setNom($this->faker->lastName())
                 ->setPrenom(mt_rand(0, 1) === 1 ? $this->faker->firstName() : null)
                 ->setEmail($this->faker->email())
-                ->setTel($this->faker->phoneNUmber())
+                ->setTel($this->faker->regexify('/^(\+33|0)[1-9]{8}$/'))
                 ->setRoles(['ROLE_USER'])
                 ->setPlainPassword('password')
                 ->setNbConvive(mt_rand(0, 4))
