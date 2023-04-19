@@ -29,6 +29,10 @@ class Reservation
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $allergie = null;
 
+    #[ORM\ManyToOne(inversedBy: 'reservations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +94,18 @@ class Reservation
     public function setAllergie(?string $allergie): self
     {
         $this->allergie = $allergie;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

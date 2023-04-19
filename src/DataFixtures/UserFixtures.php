@@ -23,7 +23,6 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-
         $allergene = [
             null,
             'Céréales contenant du gluten (blé, seigle, orge, avoine, épeautre, Kamut ou leurs souches hybrides) et produits à base de ces céréales',
@@ -50,6 +49,10 @@ class UserFixtures extends Fixture
                 ->setPlainPassword('password')
                 ->setNbConvive(mt_rand(0, 4))
                 ->setAllergie($allergene[mt_rand(0, count($allergene) - 1)]);
+
+            if ($i < 3) {
+                $this->setReference("user$i", $user);
+            }
 
             $manager->persist($user);
         }
