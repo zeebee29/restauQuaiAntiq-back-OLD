@@ -12,7 +12,7 @@ class RestaurantFixtures extends Fixture
     {
         $restau = new Restaurant();
         $restau->setAdresse('1 avenue Lorem Ipsum - XXXXX CHAMBERY');
-        $restau->setTel('01 02 03 04 05');
+        $restau->setTel('0102030405');
         $restau->setCapacite(95);
         $restau->setGapResa(15);
         $restau->setDelayBeforeEnd(60);

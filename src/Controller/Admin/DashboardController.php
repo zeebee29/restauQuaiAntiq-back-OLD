@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Categorie;
 use App\Entity\Menu;
+use App\Entity\OuvertureHebdo;
 use App\Entity\Plat;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -35,6 +36,11 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
+        yield MenuItem::section('Horaires d\'ouverture');
+        yield MenuItem::subMenu('Actions', 'fas fa_bars')->setSubItems([
+            MenuItem::linkToCrud('Création Horaires', 'fas fa-plus', OuvertureHebdo::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Modifier Horaires', 'fas fa-eye', OuvertureHebdo::class)
+        ]);
         yield MenuItem::section('Menus');
         yield MenuItem::subMenu('Actions', 'fas fa_bars')->setSubItems([
             MenuItem::linkToCrud('Création MenuPlat', 'fas fa-plus', Menu::class)->setAction(Crud::PAGE_NEW),
