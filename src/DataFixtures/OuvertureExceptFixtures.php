@@ -15,6 +15,7 @@ class OuvertureExceptFixtures extends Fixture
         $date2 = new DateTimeImmutable('2023-12-25');
         $ouverture = new OuvertureExcept();
         $ouverture->setDateOuverture($date1);
+        $ouverture->setCommentaire('Ouverture Fêt\'Nat\'');
         $manager->persist($ouverture);
 
         $ouverture2 = new OuvertureExcept();

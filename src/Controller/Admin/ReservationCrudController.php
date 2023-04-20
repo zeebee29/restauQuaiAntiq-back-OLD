@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Controller\Admin;
+
+use App\Entity\Reservation;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+
+class ReservationCrudController extends AbstractCrudController
+{
+    public static function getEntityFqcn(): string
+    {
+        return Reservation::class;
+    }
+
+    public function configureFields(string $pageName): iterable
+    {
+        return [
+            IdField::new('id')->hideOnForm()->hideOnIndex(),
+            AssociationField::new('user', 'Client'),
+            DateTimeField::new('date_reservation', 'Jour/heure réservé')->setFormat('dd/MM/yyyy à HH:mm'),
+            DateTimeField::new('createdAt', 'Date création')->setFormat('dd/MM/yyyy'),
+            DateTimeField::new('modifiedAt', 'Modifié le')->setFormat('dd/MM/yyyy'),
+            IntegerField::new('nb_convive', 'Nbre de personnes'),
+            TextEditorField::new('allergie', 'Allergie signalée'),
+        ];
+    }
+}
