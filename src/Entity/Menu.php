@@ -18,8 +18,8 @@ class Menu
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    #[Assert\NotNull()]
-    #[Assert\NotBlank()]
+    #[Assert\NotNull(message: 'Un nom de menu est requis')]
+    #[Assert\NotBlank(message: 'Un nom de menu est requis')]
     #[Assert\Length(100)]
     private ?string $nom = null;
 

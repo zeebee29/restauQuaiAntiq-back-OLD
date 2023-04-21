@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 class MenuCrudController extends AbstractCrudController
 {
@@ -17,13 +18,16 @@ class MenuCrudController extends AbstractCrudController
         return Menu::class;
     }
 
-
     public function configureFields(string $pageName): iterable
     {
         return [
             IdField::new('id')->hideOnForm()->hideOnIndex(),
             AssociationField::new('plats', 'Plats'),
-            TextField::new('nom', 'Nom'),
+            TextField::new('nom', 'Nom')
+                //->setFormTypeOption('required', true)
+                ->setFormTypeOption('constraints', [
+                    new NotNull()
+                ]),
             TextEditorField::new('description', 'Description'),
             MoneyField::new('prix', 'Prix')->setCurrency('EUR')->setCustomOption('storedAsCents', false),
         ];

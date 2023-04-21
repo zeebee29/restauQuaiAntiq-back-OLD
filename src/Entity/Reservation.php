@@ -122,4 +122,8 @@ class Reservation
 
         return $this;
     }
+    public function __toString()
+    {
+        return $this->date_reservation->format('d-m-Y - H:i');
+    }
 }
