@@ -27,8 +27,8 @@ class OuvertureHebdoCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm()->hideOnIndex(),
             TextField::new('jourSemaine', 'Jour'),
-            DateTimeField::new('h_ouverture', 'Heure Ouverture')->setFormat('HH:mm:ss'),
-            DateTimeField::new('h_fermeture', 'Heure Fermeture')->setFormat('HH:mm:ss'),
+            DateTimeField::new('h_ouverture', 'Heure Ouverture')->setFormat('HH:mm'),
+            DateTimeField::new('h_fermeture', 'Heure Fermeture')->setFormat('HH:mm'),
         ];
     }
 

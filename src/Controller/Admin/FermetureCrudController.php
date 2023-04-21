@@ -20,8 +20,8 @@ class FermetureCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm()->hideOnIndex(),
             TextField::new('commentaire', 'Libellé'),
-            DateTimeField::new('debut_fermeture', 'Début'),
-            DateTimeField::new('fin_fermeture', 'Fin'),
+            DateTimeField::new('debut_fermeture', '1er jour')->setFormat('dd/MM/YYYY'),
+            DateTimeField::new('fin_fermeture', 'Dernier jour')->setFormat('dd/MM/YYYY'),
         ];
     }
 }

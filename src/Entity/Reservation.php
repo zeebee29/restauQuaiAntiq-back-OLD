@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ReservationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
@@ -14,23 +15,35 @@ class Reservation
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[Assert\NotNull()]
+    #[Assert\NotBlank()]
+    #[Assert\datetime(format: 'd/m/Y h:i:s')]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $modifiedAt = null;
+    #[ORM\Column(nullable: true, type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank()]
+    #[Assert\datetime(format: 'd/m/Y h:i:s')]
+    private ?\DateTime $modifiedAt = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_reservation = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotNull()]
+    #[Assert\NotBlank()]
+    #[Assert\datetime(format: 'd/m/Y h:i:s')]
+    private ?\DateTime $date_reservation = null;
 
     #[ORM\Column]
+    #[Assert\NotNull()]
+    #[Assert\NotBlank()]
     private ?int $nb_convive = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Length(255)]
     private ?string $allergie = null;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotNull()]
     private ?User $user = null;
 
     public function getId(): ?int
@@ -50,24 +63,24 @@ class Reservation
         return $this;
     }
 
-    public function getModifiedAt(): ?\DateTimeImmutable
+    public function getModifiedAt(): ?\DateTime
     {
         return $this->modifiedAt;
     }
 
-    public function setModifiedAt(\DateTimeImmutable $modifiedAt): self
+    public function setModifiedAt(\DateTime $modifiedAt): self
     {
         $this->modifiedAt = $modifiedAt;
 
         return $this;
     }
 
-    public function getDateReservation(): ?\DateTimeInterface
+    public function getDateReservation(): ?\DateTime
     {
         return $this->date_reservation;
     }
 
-    public function setDateReservation(\DateTimeInterface $date_reservation): self
+    public function setDateReservation(\DateTime $date_reservation): self
     {
         $this->date_reservation = $date_reservation;
 

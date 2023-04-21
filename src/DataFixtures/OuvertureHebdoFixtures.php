@@ -12,7 +12,7 @@ class OuvertureHebdoFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $ouvertureExamples = [
-            ['lundi',    new DateTime('2020-01-01 12:00:00'), new DateTime('2020-01-01 14:30:00'), 'resaLundiMidi',],
+            ['lundi',    new DateTime('2020-01-01 12:30:00'), new DateTime('2020-01-01 14:30:00'), 'resaLundiMidi',],
             ['lundi',    new DateTime('2020-01-01 19:00:00'), new DateTime('2020-01-01 22:00:00'), 'resaLundiSoir',],
             ['mardi',    new DateTime('2020-01-01 12:00:00'), new DateTime('2020-01-01 14:30:00'), 'resaMardiMidi',],
             ['mardi',    new DateTime('2020-01-01 19:00:00'), new DateTime('2020-01-01 22:00:00'), 'resaMardiSoir',],

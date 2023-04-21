@@ -44,10 +44,10 @@ class UserFixtures extends Fixture
             $user->setNom($this->faker->lastName())
                 ->setPrenom(mt_rand(0, 1) === 1 ? $this->faker->firstName() : null)
                 ->setEmail($this->faker->email())
-                ->setTel($this->faker->regexify('/^(\+33|0)[1-9]{8}$/'))
+                ->setTel($this->faker->regexify('/^(\+33|0)[1-9]{9}$/'))
                 ->setRoles(['ROLE_USER'])
                 ->setPlainPassword('password')
-                ->setNbConvive(mt_rand(0, 4))
+                ->setNbConvive(mt_rand(1, 4))
                 ->setAllergie($allergene[mt_rand(0, count($allergene) - 1)]);
 
             if ($i < 3) {

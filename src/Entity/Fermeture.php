@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\FermetureRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: FermetureRepository::class)]
 class Fermeture
@@ -15,12 +16,19 @@ class Fermeture
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $debut_fermeture = null;
+    #[Assert\NotNull()]
+    #[Assert\NotBlank()]
+    #[Assert\DateTime(format: 'Y-m-d')]
+    private ?\DateTime $debut_fermeture = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $fin_fermeture = null;
+    #[Assert\NotNull()]
+    #[Assert\NotBlank()]
+    #[Assert\DateTime(format: 'Y-m-d')]
+    private ?\DateTime $fin_fermeture = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Length(255)]
     private ?string $commentaire = null;
 
     public function getId(): ?int
@@ -28,24 +36,24 @@ class Fermeture
         return $this->id;
     }
 
-    public function getDebutFermeture(): ?\DateTimeInterface
+    public function getDebutFermeture(): ?\DateTime
     {
         return $this->debut_fermeture;
     }
 
-    public function setDebutFermeture(\DateTimeInterface $debut_fermeture): self
+    public function setDebutFermeture(\DateTime $debut_fermeture): self
     {
         $this->debut_fermeture = $debut_fermeture;
 
         return $this;
     }
 
-    public function getFinFermeture(): ?\DateTimeInterface
+    public function getFinFermeture(): ?\DateTime
     {
         return $this->fin_fermeture;
     }
 
-    public function setFinFermeture(\DateTimeInterface $fin_fermeture): self
+    public function setFinFermeture(\DateTime $fin_fermeture): self
     {
         $this->fin_fermeture = $fin_fermeture;
 

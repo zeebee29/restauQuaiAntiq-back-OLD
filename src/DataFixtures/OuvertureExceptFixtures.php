@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\OuvertureExcept;
-use DateTimeImmutable;
+use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -11,8 +11,8 @@ class OuvertureExceptFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $date1 = new DateTimeImmutable('2023-07-14');
-        $date2 = new DateTimeImmutable('2023-12-25');
+        $date1 = new DateTime('2023-07-14');
+        $date2 = new DateTime('2023-12-25');
         $ouverture = new OuvertureExcept();
         $ouverture->setDateOuverture($date1);
         $ouverture->setCommentaire('Ouverture Fêt\'Nat\'');

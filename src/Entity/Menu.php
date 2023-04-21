@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MenuRepository::class)]
 class Menu
@@ -17,12 +18,19 @@ class Menu
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\NotNull()]
+    #[Assert\NotBlank()]
+    #[Assert\Length(100)]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Length(255)]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 4, scale: 2)]
+    #[Assert\NotNull()]
+    #[Assert\NotBlank()]
+    #[Assert\Regex("/^\d+\.\d{2}$/")]
     private ?string $prix = null;
 
     #[ORM\ManyToMany(targetEntity: Plat::class, inversedBy: 'menus')]

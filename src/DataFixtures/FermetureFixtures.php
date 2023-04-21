@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Fermeture;
-use DateTimeImmutable;
+use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -11,10 +11,10 @@ class FermetureFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $date1_deb = new DateTimeImmutable('2023-05-01');
-        $date1_fin = new DateTimeImmutable('2023-05-08');
-        $date2_deb = new DateTimeImmutable('2023-11-01');
-        $date2_fin = new DateTimeImmutable('2023-11-08');
+        $date1_deb = new DateTime('2023-05-01');
+        $date1_fin = new DateTime('2023-05-08');
+        $date2_deb = new DateTime('2023-11-01');
+        $date2_fin = new DateTime('2023-11-08');
         $ferme1 = new Fermeture();
         $ferme1->setDebutFermeture($date1_deb);
         $ferme1->setFinFermeture($date1_fin);

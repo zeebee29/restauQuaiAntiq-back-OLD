@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\OuvertureExceptRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: OuvertureExceptRepository::class)]
 class OuvertureExcept
@@ -14,10 +15,13 @@ class OuvertureExcept
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $date_ouverture = null;
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotNull()]
+    #[Assert\NotBlank()]
+    private ?\DateTime $date_ouverture = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Length(255)]
     private ?string $commentaire = null;
 
     public function getId(): ?int
@@ -25,12 +29,12 @@ class OuvertureExcept
         return $this->id;
     }
 
-    public function getDateOuverture(): ?\DateTimeInterface
+    public function getDateOuverture(): ?\DateTime
     {
         return $this->date_ouverture;
     }
 
-    public function setDateOuverture(?\DateTimeInterface $date_ouverture): self
+    public function setDateOuverture(?\DateTime $date_ouverture): self
     {
         $this->date_ouverture = $date_ouverture;
 

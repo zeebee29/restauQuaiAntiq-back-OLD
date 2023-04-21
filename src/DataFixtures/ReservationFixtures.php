@@ -15,8 +15,8 @@ class ReservationFixtures extends Fixture implements DependentFixtureInterface
     {
         $resaExamples = [
             ['user0', new DateTime('2023-07-17 12:45:00'), 2, null, new DateTimeImmutable('2023-04-18 14:30:00'), null,],
-            ['user1', new DateTime('2020-06-03 21:00:00'), 5, null, new DateTimeImmutable('2023-04-18 14:31:00'), null,],
-            ['user2', new DateTime('2020-01-01 12:00:00'), 7, null, new DateTimeImmutable('2020-04-18 14:31:00'), null,],
+            ['user1', new DateTime('2023-06-03 21:00:00'), 5, null, new DateTimeImmutable('2023-04-18 21:31:00'), null,],
+            ['user2', new DateTime('2020-01-01 12:00:00'), 7, null, new DateTimeImmutable('2020-04-18 07:31:00'), null,],
         ];
 
         foreach ($resaExamples as [$user, $dateResa, $nbConvive, $allergie, $createdAt, $modifAt]) {
