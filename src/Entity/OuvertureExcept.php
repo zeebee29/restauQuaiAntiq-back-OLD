@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\OuvertureExceptRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: OuvertureExceptRepository::class)]
+#[ApiResource()]
 class OuvertureExcept
 {
     #[ORM\Id]
@@ -18,7 +20,7 @@ class OuvertureExcept
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    private ?\DateTime $date_ouverture = null;
+    private ?\DateTime $dateOuverture = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\Length(255)]
@@ -31,12 +33,12 @@ class OuvertureExcept
 
     public function getDateOuverture(): ?\DateTime
     {
-        return $this->date_ouverture;
+        return $this->dateOuverture;
     }
 
-    public function setDateOuverture(?\DateTime $date_ouverture): self
+    public function setDateOuverture(?\DateTime $dateOuverture): self
     {
-        $this->date_ouverture = $date_ouverture;
+        $this->dateOuverture = $dateOuverture;
 
         return $this;
     }

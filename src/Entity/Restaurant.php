@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\RestaurantRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RestaurantRepository::class)]
+#[ApiResource()]
 class Restaurant
 {
     #[ORM\Id]
@@ -36,7 +38,7 @@ class Restaurant
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
     #[Assert\GreaterThanOrEqual(10)]
-    private ?int $gap_resa = null;
+    private ?int $gapResa = null;
 
     #[ORM\Column]
     #[Assert\NotNull()]
@@ -86,12 +88,12 @@ class Restaurant
 
     public function getGapResa(): ?int
     {
-        return $this->gap_resa;
+        return $this->gapResa;
     }
 
-    public function setGapResa(int $gap_resa): self
+    public function setGapResa(int $gapResa): self
     {
-        $this->gap_resa = $gap_resa;
+        $this->gapResa = $gapResa;
 
         return $this;
     }

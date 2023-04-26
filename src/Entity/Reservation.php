@@ -2,12 +2,18 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ReservationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
+#[ApiResource(
+    normalizationContext: ['groups' => ['read:book']],
+    denormalizationContext: ['groups' => ['write:book']],
+)]
 class Reservation
 {
     #[ORM\Id]
@@ -15,48 +21,62 @@ class Reservation
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
     #[Assert\datetime(format: 'd/m/Y h:i:s')]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[Groups(['read:book'])]
+    private ?\DateTime $createdAt = null;
 
     #[ORM\Column(nullable: true, type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank()]
     #[Assert\datetime(format: 'd/m/Y h:i:s')]
+    #[Groups(['read:book'])]
     private ?\DateTime $modifiedAt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    #[Assert\datetime(format: 'd/m/Y h:i:s')]
-    private ?\DateTime $date_reservation = null;
+    //    #[Assert\datetime(format: 'd/m/Y h:i:s')]
+    #[Assert\datetime()]
+    #[Groups(['read:book', 'write:book'])]
+    private ?\DateTime $dateReservation = null;
 
     #[ORM\Column]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    private ?int $nb_convive = null;
+    #[Groups(['read:book', 'write:book'])]
+    private ?int $nbConvive = 0;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\Length(255)]
+    #[Groups(['read:book', 'write:book'])]
     private ?string $allergie = null;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotNull()]
+    #[Groups(['read:book', 'write:book'])]
     private ?User $user = null;
+
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->modifiedAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -77,24 +97,24 @@ class Reservation
 
     public function getDateReservation(): ?\DateTime
     {
-        return $this->date_reservation;
+        return $this->dateReservation;
     }
 
-    public function setDateReservation(\DateTime $date_reservation): self
+    public function setDateReservation(\DateTime $dateReservation): self
     {
-        $this->date_reservation = $date_reservation;
+        $this->dateReservation = $dateReservation;
 
         return $this;
     }
 
     public function getNbConvive(): ?int
     {
-        return $this->nb_convive;
+        return $this->nbConvive;
     }
 
-    public function setNbConvive(int $nb_convive): self
+    public function setNbConvive(int $nbConvive): self
     {
-        $this->nb_convive = $nb_convive;
+        $this->nbConvive = $nbConvive;
 
         return $this;
     }
@@ -124,6 +144,6 @@ class Reservation
     }
     public function __toString()
     {
-        return $this->date_reservation->format('d-m-Y - H:i');
+        return $this->dateReservation->format('d-m-Y - H:i');
     }
 }

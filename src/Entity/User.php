@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,23 +10,27 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\component\Validator\Constraints as Assert;
 
 
 #[UniqueEntity('email')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
+#[ApiResource()]
 
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('read:book')]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank()]
     #[Assert\Length(min: 2, max: 50)]
+    #[Groups('read:book')]
     private ?string $nom = null;
 
     #[ORM\Column(length: 50, nullable: true)]
@@ -56,7 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $tel = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $nb_convive = null;
+    private ?int $nbConvive = null;
 
     #[ORM\Column(length: 500, nullable: true)]
     private ?string $allergie = null;
@@ -196,12 +201,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getNbConvive(): ?int
     {
-        return $this->nb_convive;
+        return $this->nbConvive;
     }
 
-    public function setNbConvive(?int $nb_convive): self
+    public function setNbConvive(?int $nbConvive): self
     {
-        $this->nb_convive = $nb_convive;
+        $this->nbConvive = $nbConvive;
 
         return $this;
     }

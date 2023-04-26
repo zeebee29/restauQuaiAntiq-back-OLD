@@ -22,10 +22,10 @@ class ReservationCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm()->hideOnIndex(),
             AssociationField::new('user', 'Client'),
-            DateTimeField::new('date_reservation', 'Jour/heure réservé')->setFormat('dd/MM/yyyy HH:mm'),
+            DateTimeField::new('dateReservation', 'Jour/heure réservé')->setFormat('dd/MM/yyyy HH:mm'),
             DateTimeField::new('createdAt', 'Date création')->setFormat('dd/MM/yyyy HH:mm'),
             DateTimeField::new('modifiedAt', 'Modifié le')->setFormat('dd/MM/yyyy HH:mm'),
-            IntegerField::new('nb_convive', 'Nbre de personnes'),
+            IntegerField::new('nbConvive', 'Nbre de personnes'),
             TextEditorField::new('allergie', 'Allergie signalée'),
         ];
     }

@@ -50,7 +50,7 @@ class UserCrudController extends AbstractCrudController
                 ->setFormTypeOption('constraints', [
                     new NotBlank(),
                 ]),
-            IntegerField::new('nb_convive', 'Nbre convive(s)'),
+            IntegerField::new('nbConvive', 'Nbre convive(s)'),
             TextEditorField::new('allergie', 'Allergie signalée'),
         ];
     }

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\OuvertureHebdoRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -9,6 +10,7 @@ use Symfony\component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: OuvertureHebdoRepository::class)]
+#[ApiResource()]
 class OuvertureHebdo
 {
     #[ORM\Id]
@@ -26,12 +28,12 @@ class OuvertureHebdo
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    private ?\DateTime $h_ouverture = null;
+    private ?\DateTime $hOuverture = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    private ?\DateTime $h_fermeture = null;
+    private ?\DateTime $hFermeture = null;
 
     public function getId(): ?int
     {
@@ -52,24 +54,24 @@ class OuvertureHebdo
 
     public function getHOuverture(): ?\DateTime
     {
-        return $this->h_ouverture;
+        return $this->hOuverture;
     }
 
-    public function setHOuverture(\DateTime $h_ouverture): self
+    public function setHOuverture(\DateTime $hOuverture): self
     {
-        $this->h_ouverture = $h_ouverture;
+        $this->hOuverture = $hOuverture;
 
         return $this;
     }
 
     public function getHFermeture(): ?\DateTime
     {
-        return $this->h_fermeture;
+        return $this->hFermeture;
     }
 
-    public function setHFermeture(\DateTime $h_fermeture): self
+    public function setHFermeture(\DateTime $hFermeture): self
     {
-        $this->h_fermeture = $h_fermeture;
+        $this->hFermeture = $hFermeture;
 
         return $this;
     }
