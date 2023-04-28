@@ -7,10 +7,14 @@ use App\Repository\CategorieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
-#[ApiResource()]
+#[ApiResource(
+    normalizationContext: ['groups' => ['read:cat']],
+    denormalizationContext: ['groups' => ['write:cat']],
+)]
 class Categorie
 {
     #[ORM\Id]
@@ -20,14 +24,17 @@ class Categorie
 
     #[ORM\Column(length: 20)]
     #[Assert\Length(20)]
+    #[Groups(['read:cat', 'write:cat'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 50)]
     #[Assert\Length(50)]
+    #[Groups(['read:cat', 'write:cat', 'read:menu'])]
     private ?string $titreMenu = null;
 
     #[ORM\Column(length: 50)]
     #[Assert\Length(50)]
+    #[Groups(['read:cat', 'write:cat', 'read:plat'])]
     private ?string $titreCarte = null;
 
     #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Plat::class)]

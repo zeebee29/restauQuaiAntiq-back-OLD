@@ -26,25 +26,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups('read:book')]
+    #[Groups(['read:book'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank()]
     #[Assert\Length(min: 2, max: 50)]
-    #[Groups('read:book', 'read:user', 'write:user')]
+    #[Groups(['read:book', 'read:user', 'write:user'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     #[Assert\Length(min: 2, max: 50)]
-    #[Groups('read:user', 'write:user')]
+    #[Groups(['read:user', 'write:user'])]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\Email()]
     #[Assert\Unique()]
     #[Assert\Length(min: 2, max: 180)]
-    #[Groups('read:user', 'write:user')]
+    #[Groups(['read:user', 'write:user'])]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -62,12 +62,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 14)]
     #[Assert\NotBlank()]
     #[Assert\Length(min: 10, max: 14)]
+    #[Groups(['read:user', 'write:user'])]
     private ?string $tel = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['read:user', 'write:user'])]
     private ?int $nbConvive = null;
 
     #[ORM\Column(length: 500, nullable: true)]
+    #[Groups(['read:user', 'write:user'])]
     private ?string $allergie = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class, orphanRemoval: true)]

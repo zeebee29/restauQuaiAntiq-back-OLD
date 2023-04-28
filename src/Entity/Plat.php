@@ -8,10 +8,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PlatRepository::class)]
-#[ApiResource()]
+#[ApiResource(
+    normalizationContext: ['groups' => ['read:plat']],
+    denormalizationContext: ['groups' => ['write:plat']],
+)]
 class Plat
 {
     #[ORM\Id]
@@ -23,21 +27,25 @@ class Plat
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
     #[Assert\Length(100)]
+    #[Groups(['read:plat', 'write:plat', 'read:menu'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(255)]
+    #[Groups(['read:plat', 'write:plat', 'read:menu'])]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 4, scale: 2)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
     #[Assert\Regex("/^\d+\.\d{2}$/")]
+    #[Groups(['read:plat', 'write:plat'])]
     private ?string $prix = null;
 
     #[ORM\ManyToOne(inversedBy: 'plats')]
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotNull()]
+    #[Groups(['read:plat', 'write:plat'])]
     private ?Categorie $categorie = null;
 
     #[ORM\ManyToMany(targetEntity: Menu::class, mappedBy: 'plats')]

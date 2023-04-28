@@ -5,10 +5,14 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\RestaurantRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RestaurantRepository::class)]
-#[ApiResource()]
+#[ApiResource(
+    normalizationContext: ['groups' => ['read:restau']],
+    denormalizationContext: ['groups' => ['write:restau']],
+)]
 class Restaurant
 {
     #[ORM\Id]
@@ -20,12 +24,14 @@ class Restaurant
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
     #[Assert\Length(500)]
+    #[Groups(['read:restau', 'write:restau'])]
     private ?string $adresse = null;
 
     #[ORM\Column(length: 12)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
     #[Assert\Length(12)]
+    #[Groups(['read:restau', 'write:restau'])]
     private ?string $tel = null;
 
     #[ORM\Column]
@@ -43,7 +49,7 @@ class Restaurant
     #[ORM\Column]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    private ?int $delay_before_end = null;
+    private ?int $delayBeforeEnd = null;
 
     public function getId(): ?int
     {
@@ -100,12 +106,12 @@ class Restaurant
 
     public function getDelayBeforeEnd(): ?int
     {
-        return $this->delay_before_end;
+        return $this->delayBeforeEnd;
     }
 
-    public function setDelayBeforeEnd(int $delay_before_end): self
+    public function setDelayBeforeEnd(int $delayBeforeEnd): self
     {
-        $this->delay_before_end = $delay_before_end;
+        $this->delayBeforeEnd = $delayBeforeEnd;
 
         return $this;
     }

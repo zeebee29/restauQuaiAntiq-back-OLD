@@ -27,7 +27,7 @@ class RestaurantCrudController extends AbstractCrudController
             TextEditorField::new('adresse', 'Adresse'),
             IntegerField::new('capacite', 'Capacité'),
             IntegerField::new('gapResa', 'Plage réservation (minute)'),
-            IntegerField::new('delay_before_end', 'Temps entre dernière \nréservation et fermeture (minute)'),
+            IntegerField::new('delayBeforeEnd', 'Temps entre dernière réservation et fermeture (minute)'),
         ];
     }
 

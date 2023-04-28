@@ -8,10 +8,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MenuRepository::class)]
-#[ApiResource()]
+#[ApiResource(
+    normalizationContext: ['groups' => ['read:menu']],
+    denormalizationContext: ['groups' => ['write:menu']],
+)]
 class Menu
 {
     #[ORM\Id]
@@ -23,19 +27,23 @@ class Menu
     #[Assert\NotNull(message: 'Un nom de menu est requis')]
     #[Assert\NotBlank(message: 'Un nom de menu est requis')]
     #[Assert\Length(100)]
+    #[Groups(['read:menu', 'write:menu', 'read:plat'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\Length(255)]
+    #[Groups(['read:menu', 'write:menu'])]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 4, scale: 2)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
     #[Assert\Regex("/^\d+\.\d{2}$/")]
+    #[Groups(['read:menu', 'write:menu'])]
     private ?string $prix = null;
 
     #[ORM\ManyToMany(targetEntity: Plat::class, inversedBy: 'menus')]
+    #[Groups(['read:menu', 'write:menu'])]
     private Collection $plats;
 
     public function __construct()

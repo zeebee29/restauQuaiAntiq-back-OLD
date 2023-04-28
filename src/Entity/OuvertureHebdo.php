@@ -6,11 +6,15 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\OuvertureHebdoRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: OuvertureHebdoRepository::class)]
-#[ApiResource()]
+#[ApiResource(
+    normalizationContext: ['groups' => ['read:week']],
+    denormalizationContext: ['groups' => ['write:week']],
+)]
 class OuvertureHebdo
 {
     #[ORM\Id]
@@ -23,16 +27,19 @@ class OuvertureHebdo
     #[Assert\NotBlank()]
     #[Assert\Length(10)]
     #[Assert\Choice(choices: ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"])]
+    #[Groups(['read:week', 'write:week'])]
     private ?string $jourSemaine = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
+    #[Groups(['read:week', 'write:week'])]
     private ?\DateTime $hOuverture = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
+    #[Groups(['read:week', 'write:week'])]
     private ?\DateTime $hFermeture = null;
 
     public function getId(): ?int
