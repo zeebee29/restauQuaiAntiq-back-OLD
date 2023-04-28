@@ -17,8 +17,10 @@ use Symfony\component\Validator\Constraints as Assert;
 #[UniqueEntity('email')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
-#[ApiResource()]
-
+#[ApiResource(
+    normalizationContext: ['groups' => ['read:user']],
+    denormalizationContext: ['groups' => ['write:user']],
+)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -30,17 +32,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank()]
     #[Assert\Length(min: 2, max: 50)]
-    #[Groups('read:book')]
+    #[Groups('read:book', 'read:user', 'write:user')]
     private ?string $nom = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     #[Assert\Length(min: 2, max: 50)]
+    #[Groups('read:user', 'write:user')]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\Email()]
     #[Assert\Unique()]
     #[Assert\Length(min: 2, max: 180)]
+    #[Groups('read:user', 'write:user')]
     private ?string $email = null;
 
     #[ORM\Column]

@@ -37,8 +37,8 @@ class Reservation
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    //    #[Assert\datetime(format: 'd/m/Y h:i:s')]
-    #[Assert\datetime()]
+    #[Assert\datetime(format: 'd/m/Y h:i:s')]
+    //#[Assert\datetime()]
     #[Groups(['read:book', 'write:book'])]
     private ?\DateTime $dateReservation = null;
 
