@@ -7,7 +7,7 @@ use App\Repository\ReservationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 #[ApiResource(
@@ -24,21 +24,21 @@ class Reservation
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    #[Assert\datetime(format: 'd/m/Y h:i:s')]
+    #[Assert\DateTime(format: 'd/m/Y h:i:s')]
     #[Groups(['read:book'])]
     private ?\DateTime $createdAt = null;
 
     #[ORM\Column(nullable: true, type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank()]
-    #[Assert\datetime(format: 'd/m/Y h:i:s')]
+    #[Assert\DateTime(format: 'd/m/Y h:i:s')]
     #[Groups(['read:book'])]
     private ?\DateTime $modifiedAt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    #[Assert\datetime(format: 'd/m/Y h:i:s')]
-    //#[Assert\datetime()]
+    #[Assert\DateTime(format: 'd/m/Y h:i:s')]
+    //#[Assert\DateTime()]
     #[Groups(['read:book', 'write:book'])]
     private ?\DateTime $dateReservation = null;
 

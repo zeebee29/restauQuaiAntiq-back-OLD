@@ -6,7 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\RestaurantRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RestaurantRepository::class)]
 #[ApiResource(

@@ -7,7 +7,7 @@ use App\Repository\FermetureRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: FermetureRepository::class)]
 #[ApiResource(
