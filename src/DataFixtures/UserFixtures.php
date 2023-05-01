@@ -48,7 +48,8 @@ class UserFixtures extends Fixture
                 ->setRoles(['ROLE_USER'])
                 ->setPlainPassword('password')
                 ->setNbConvive(mt_rand(1, 4))
-                ->setAllergie($allergene[mt_rand(0, count($allergene) - 1)]);
+                ->setAllergie($allergene[mt_rand(0, count($allergene) - 1)])
+                ->setUpdatedAt(new \DateTime());
 
             if ($i < 3) {
                 $this->setReference("user$i", $user);

@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -75,9 +76,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class, orphanRemoval: true)]
     private Collection $reservations;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\DateTime(format: 'd/m/Y h:i:s')]
+    #[Groups(['read:user'])]
+    private ?\DateTimeInterface $updatedAt = null;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -258,6 +265,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
     public function __toString()
     {
         return $this->nom;
