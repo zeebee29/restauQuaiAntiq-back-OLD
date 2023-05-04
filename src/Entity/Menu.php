@@ -2,6 +2,10 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\MenuRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -16,11 +20,13 @@ use Symfony\Component\Validator\Constraints as Assert;
     normalizationContext: ['groups' => ['read:menu']],
     denormalizationContext: ['groups' => ['write:menu']],
 )]
+//#[ApiFilter(RangeFilter::class, properties: ['prix'])]
 class Menu
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[ApiProperty('identifier=true')]
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
@@ -28,6 +34,7 @@ class Menu
     #[Assert\NotBlank(message: 'Un nom de menu est requis')]
     #[Assert\Length(100)]
     #[Groups(['read:menu', 'write:menu', 'read:plat'])]
+    #[ApiProperty()]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -40,6 +47,7 @@ class Menu
     #[Assert\NotBlank()]
     #[Assert\Regex("/^\d+\.\d{2}$/")]
     #[Groups(['read:menu', 'write:menu'])]
+    #[ApiProperty()]
     private ?string $prix = null;
 
     #[ORM\ManyToMany(targetEntity: Plat::class, inversedBy: 'menus')]
