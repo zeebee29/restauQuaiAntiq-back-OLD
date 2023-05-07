@@ -2,7 +2,11 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Action\NotFoundAction;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use App\Controller\MeController;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -19,8 +23,24 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
 #[ApiResource(
+    shortName: 'client',
+    operations: [
+        new Get(
+            controller: NotFoundAction::class,
+            openapiContext: ['summary' => 'hidden'],
+            read: false,
+            output: false
+        ),
+        new GetCollection(
+            paginationEnabled: false,
+            uriTemplate: '/me',
+            controller: MeController::class,
+            read: false
+        ),
+    ],
     normalizationContext: ['groups' => ['read:user']],
     denormalizationContext: ['groups' => ['write:user']],
+
 )]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {

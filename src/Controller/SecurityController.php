@@ -13,7 +13,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    #[Route('/login', name: 'security.login', methods: ['GET', 'POST'])]
+    /*
+    #[Route('/login-back', name: 'security.login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         return $this->render('security/login.html.twig', [
@@ -22,17 +23,33 @@ class SecurityController extends AbstractController
 
         ]);
     }
+*/
+    #[Route('/api/login', name: 'api.login', methods: ['POST'])]
+    public function login(): Response
+    {
+        $user = $this->getUser();
+        return $this->json([
+            'username' => $user->getUserIdentifier(),
+            'roles' => $user->getRoles()
+        ]);
+    }
     /**
      * This controller is defined to logout user
      * 
      * @return void
      */
+    #[Route('/api/logout', name: 'api.logout', methods: ['POST'])]
+    public function logout()
+    {
+        //nothing here
+    }
+    /*
     #[Route('/logout', name: 'security.logout')]
     public function logout()
     {
         //nothing here
     }
-
+*/
     #[Route('/enregistrement', 'security.registration', methods: ['GET', 'POST'])]
     public function registration(Request $request, EntityManagerInterface $manager): Response
     {
