@@ -28,7 +28,7 @@ class OuvertureExcept
     private ?\DateTime $dateOuverture = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Length(255)]
+    #[Assert\Length(max: 255)]
     #[Groups(['read:open', 'write:open'])]
     private ?string $commentaire = null;
 

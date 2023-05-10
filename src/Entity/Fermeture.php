@@ -36,7 +36,7 @@ class Fermeture
     private ?\DateTime $finFermeture = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Length(255)]
+    #[Assert\Length(max: 255)]
     #[Groups(['read:closed', 'write:closed'])]
     private ?string $commentaire = null;
 

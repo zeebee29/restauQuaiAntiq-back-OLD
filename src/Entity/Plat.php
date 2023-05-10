@@ -26,12 +26,12 @@ class Plat
     #[ORM\Column(length: 100)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    #[Assert\Length(100)]
+    #[Assert\Length(max: 100)]
     #[Groups(['read:plat', 'write:plat', 'read:menu'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(255)]
+    #[Assert\Length(max: 255)]
     #[Groups(['read:plat', 'write:plat', 'read:menu'])]
     private ?string $description = null;
 

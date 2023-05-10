@@ -23,14 +23,14 @@ class Restaurant
     #[ORM\Column(length: 500)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    #[Assert\Length(500)]
+    #[Assert\Length(max: 500)]
     #[Groups(['read:restau', 'write:restau'])]
     private ?string $adresse = null;
 
     #[ORM\Column(length: 12)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    #[Assert\Length(12)]
+    #[Assert\Length(min: 10, max: 14)]
     #[Groups(['read:restau', 'write:restau'])]
     private ?string $tel = null;
 

@@ -25,7 +25,7 @@ class OuvertureHebdo
     #[ORM\Column(length: 10)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    #[Assert\Length(10)]
+    #[Assert\Length(max: 10)]
     #[Assert\Choice(choices: ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"])]
     #[Groups(['read:week', 'write:week'])]
     private ?string $jourSemaine = null;
