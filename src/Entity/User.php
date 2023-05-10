@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Action\NotFoundAction;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Controller\MeController;
@@ -35,7 +36,14 @@ use Symfony\Component\Validator\Constraints as Assert;
             paginationEnabled: false,
             uriTemplate: '/me',
             controller: MeController::class,
-            read: false
+            read: false,
+            security: 'is_granted("ROLE_USER")'
+        ),
+        new Delete(
+            uriTemplate: '/user/{id}/delete',
+            controller: MeController::class,
+            read: false,
+            security: 'is_granted("ROLE_ADMIN")'
         ),
     ],
     normalizationContext: ['groups' => ['read:user']],
