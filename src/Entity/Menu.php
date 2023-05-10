@@ -26,12 +26,12 @@ class Menu
     #[ORM\Column(length: 100)]
     #[Assert\NotNull(message: 'Un nom de menu est requis')]
     #[Assert\NotBlank(message: 'Un nom de menu est requis')]
-    #[Assert\Length(100)]
+    #[Assert\Length(max: 100)]
     #[Groups(['read:menu', 'write:menu', 'read:plat'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Length(255)]
+    #[Assert\Length(max: 255)]
     #[Groups(['read:menu', 'write:menu'])]
     private ?string $description = null;
 

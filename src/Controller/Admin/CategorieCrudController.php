@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Categorie;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class CategorieCrudController extends AbstractCrudController
@@ -22,6 +23,7 @@ class CategorieCrudController extends AbstractCrudController
             TextField::new('nom', 'Nom'),
             TextField::new('titreMenu', 'Titre sur menu'),
             TextField::new('titreCarte', 'Titre sur carte'),
+            IntegerField::new('ordreCarte', 'Ordre sur Carte'),
         ];
     }
 }

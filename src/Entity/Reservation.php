@@ -49,7 +49,7 @@ class Reservation
     private ?int $nbConvive = 0;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Length(255)]
+    #[Assert\Length(max: 255)]
     #[Groups(['read:book', 'write:book'])]
     private ?string $allergie = null;
 

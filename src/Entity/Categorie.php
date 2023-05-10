@@ -7,6 +7,7 @@ use App\Repository\CategorieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -15,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     normalizationContext: ['groups' => ['read:cat']],
     denormalizationContext: ['groups' => ['write:cat']],
 )]
+
 class Categorie
 {
     #[ORM\Id]
@@ -23,19 +25,24 @@ class Categorie
     private ?int $id = null;
 
     #[ORM\Column(length: 20)]
-    #[Assert\Length(20)]
+    #[Assert\Length(max: 20)]
     #[Groups(['read:cat', 'write:cat'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 50)]
-    #[Assert\Length(50)]
+    #[Assert\Length(max: 50)]
     #[Groups(['read:cat', 'write:cat', 'read:menu'])]
     private ?string $titreMenu = null;
 
     #[ORM\Column(length: 50)]
-    #[Assert\Length(50)]
+    #[Assert\Length(max: 50)]
     #[Groups(['read:cat', 'write:cat', 'read:plat'])]
     private ?string $titreCarte = null;
+
+    #[ORM\Column()]
+    #[Assert\GreaterThan(0)]
+    #[Groups(['read:cat', 'write:cat', 'read:plat'])]
+    private ?int $ordreCarte = null;
 
     #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Plat::class)]
     private Collection $plats;
@@ -119,5 +126,17 @@ class Categorie
     public function __toString()
     {
         return $this->nom;
+    }
+
+    public function getOrdreCarte(): ?int
+    {
+        return $this->ordreCarte;
+    }
+
+    public function setOrdreCarte(int $ordreCarte): self
+    {
+        $this->ordreCarte = $ordreCarte;
+
+        return $this;
     }
 }
