@@ -22,12 +22,12 @@ class MenuCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm()->hideOnIndex(),
-            AssociationField::new('plats', 'Plats'),
             TextField::new('nom', 'Nom')
                 //->setFormTypeOption('required', true)
                 ->setFormTypeOption('constraints', [
                     new NotNull()
                 ]),
+            AssociationField::new('plats', 'Plats'),
             TextEditorField::new('description', 'Description'),
             MoneyField::new('prix', 'Prix')->setCurrency('EUR')->setCustomOption('storedAsCents', false),
         ];

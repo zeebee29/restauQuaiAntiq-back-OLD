@@ -36,12 +36,12 @@ class Restaurant
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
     #[Assert\GreaterThanOrEqual(10)]
-    private ?int $gap_resa = null;
+    private ?int $gapResa = null;
 
     #[ORM\Column]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    private ?int $delay_before_end = null;
+    private ?int $delayBeforeEnd = null;
 
     public function getId(): ?int
     {
@@ -86,24 +86,24 @@ class Restaurant
 
     public function getGapResa(): ?int
     {
-        return $this->gap_resa;
+        return $this->gapResa;
     }
 
-    public function setGapResa(int $gap_resa): self
+    public function setGapResa(int $gapResa): self
     {
-        $this->gap_resa = $gap_resa;
+        $this->gapResa = $gapResa;
 
         return $this;
     }
 
     public function getDelayBeforeEnd(): ?int
     {
-        return $this->delay_before_end;
+        return $this->delayBeforeEnd;
     }
 
-    public function setDelayBeforeEnd(int $delay_before_end): self
+    public function setDelayBeforeEnd(int $delayBeforeEnd): self
     {
-        $this->delay_before_end = $delay_before_end;
+        $this->delayBeforeEnd = $delayBeforeEnd;
 
         return $this;
     }

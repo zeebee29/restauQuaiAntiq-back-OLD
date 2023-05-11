@@ -56,7 +56,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $tel = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $nb_convive = null;
+    private ?int $nbConvive = null;
 
     #[ORM\Column(length: 500, nullable: true)]
     private ?string $allergie = null;
@@ -196,12 +196,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getNbConvive(): ?int
     {
-        return $this->nb_convive;
+        return $this->nbConvive;
     }
 
-    public function setNbConvive(?int $nb_convive): self
+    public function setNbConvive(?int $nbConvive): self
     {
-        $this->nb_convive = $nb_convive;
+        $this->nbConvive = $nbConvive;
 
         return $this;
     }

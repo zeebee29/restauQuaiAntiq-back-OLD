@@ -26,7 +26,7 @@ class UserCrudController extends AbstractCrudController
             IdField::new('id')
                 ->hideOnForm()
                 ->hideOnIndex(),
-            AssociationField::new('reservations', 'Réservations'),
+            AssociationField::new('reservations', 'Réservations')->setFormTypeOption('disabled', 'disabled'),
             TextField::new('nom', 'Nom')
                 ->setRequired(true)
                 ->setFormTypeOption('constraints', [
@@ -50,7 +50,7 @@ class UserCrudController extends AbstractCrudController
                 ->setFormTypeOption('constraints', [
                     new NotBlank(),
                 ]),
-            IntegerField::new('nb_convive', 'Nbre convive(s)'),
+            IntegerField::new('nbConvive', 'Nbre convive(s)'),
             TextEditorField::new('allergie', 'Allergie signalée'),
         ];
     }

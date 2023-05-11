@@ -15,11 +15,11 @@ class Reservation
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
     #[Assert\datetime(format: 'd/m/Y h:i:s')]
-    private ?\DateTimeImmutable $createdAt = null;
+    private ?\DateTime $createdAt = null;
 
     #[ORM\Column(nullable: true, type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank()]
@@ -29,13 +29,14 @@ class Reservation
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    #[Assert\datetime(format: 'd/m/Y h:i:s')]
-    private ?\DateTime $date_reservation = null;
+    //   #[Assert\datetime(format: 'd/m/Y h:i:s')]
+    #[Assert\datetime()]
+    private ?\DateTime $dateReservation = null;
 
     #[ORM\Column]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    private ?int $nb_convive = null;
+    private ?int $nbConvive = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\Length(255)]
@@ -46,17 +47,24 @@ class Reservation
     #[Assert\NotNull()]
     private ?User $user = null;
 
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->modifiedAt = new \DateTime();
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -77,24 +85,24 @@ class Reservation
 
     public function getDateReservation(): ?\DateTime
     {
-        return $this->date_reservation;
+        return $this->dateReservation;
     }
 
-    public function setDateReservation(\DateTime $date_reservation): self
+    public function setDateReservation(\DateTime $dateReservation): self
     {
-        $this->date_reservation = $date_reservation;
+        $this->dateReservation = $dateReservation;
 
         return $this;
     }
 
     public function getNbConvive(): ?int
     {
-        return $this->nb_convive;
+        return $this->nbConvive;
     }
 
-    public function setNbConvive(int $nb_convive): self
+    public function setNbConvive(int $nbConvive): self
     {
-        $this->nb_convive = $nb_convive;
+        $this->nbConvive = $nbConvive;
 
         return $this;
     }
@@ -124,6 +132,6 @@ class Reservation
     }
     public function __toString()
     {
-        return $this->date_reservation->format('d-m-Y - H:i');
+        return $this->dateReservation->format('d-m-Y - H:i');
     }
 }

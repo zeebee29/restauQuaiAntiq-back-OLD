@@ -19,13 +19,13 @@ class Fermeture
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
     #[Assert\DateTime(format: 'Y-m-d')]
-    private ?\DateTime $debut_fermeture = null;
+    private ?\DateTime $debutFermeture = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
     #[Assert\DateTime(format: 'Y-m-d')]
-    private ?\DateTime $fin_fermeture = null;
+    private ?\DateTime $finFermeture = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\Length(255)]
@@ -38,24 +38,24 @@ class Fermeture
 
     public function getDebutFermeture(): ?\DateTime
     {
-        return $this->debut_fermeture;
+        return $this->debutFermeture;
     }
 
-    public function setDebutFermeture(\DateTime $debut_fermeture): self
+    public function setDebutFermeture(\DateTime $debutFermeture): self
     {
-        $this->debut_fermeture = $debut_fermeture;
+        $this->debutFermeture = $debutFermeture;
 
         return $this;
     }
 
     public function getFinFermeture(): ?\DateTime
     {
-        return $this->fin_fermeture;
+        return $this->finFermeture;
     }
 
-    public function setFinFermeture(\DateTime $fin_fermeture): self
+    public function setFinFermeture(\DateTime $finFermeture): self
     {
-        $this->fin_fermeture = $fin_fermeture;
+        $this->finFermeture = $finFermeture;
 
         return $this;
     }

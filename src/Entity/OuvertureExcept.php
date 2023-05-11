@@ -18,7 +18,7 @@ class OuvertureExcept
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    private ?\DateTime $date_ouverture = null;
+    private ?\DateTime $dateOuverture = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\Length(255)]
@@ -31,12 +31,12 @@ class OuvertureExcept
 
     public function getDateOuverture(): ?\DateTime
     {
-        return $this->date_ouverture;
+        return $this->dateOuverture;
     }
 
-    public function setDateOuverture(?\DateTime $date_ouverture): self
+    public function setDateOuverture(?\DateTime $dateOuverture): self
     {
-        $this->date_ouverture = $date_ouverture;
+        $this->dateOuverture = $dateOuverture;
 
         return $this;
     }

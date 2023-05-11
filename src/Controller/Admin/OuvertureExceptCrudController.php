@@ -20,7 +20,7 @@ class OuvertureExceptCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm()->hideOnIndex(),
             TextField::new('commentaire', 'Libellé'),
-            DateTimeField::new('date_ouverture', 'Jour ouverture'),
+            DateTimeField::new('dateOuverture', 'Jour ouverture'),
         ];
     }
 }
