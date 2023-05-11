@@ -24,7 +24,6 @@ class OuvertureExcept
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    #[Groups(['read:open', 'write:open'])]
     private ?\DateTime $dateOuverture = null;
 
     #[ORM\Column(length: 255, nullable: true)]

@@ -33,13 +33,11 @@ class OuvertureHebdo
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    #[Groups(['read:week', 'write:week'])]
     private ?\DateTime $hOuverture = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    #[Groups(['read:week', 'write:week'])]
     private ?\DateTime $hFermeture = null;
 
     public function getId(): ?int

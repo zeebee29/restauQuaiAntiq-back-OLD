@@ -25,14 +25,12 @@ class Fermeture
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
     #[Assert\DateTime(format: 'Y-m-d')]
-    #[Groups(['read:closed', 'write:closed'])]
     private ?\DateTime $debutFermeture = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
     #[Assert\DateTime(format: 'Y-m-d')]
-    #[Groups(['read:closed', 'write:closed'])]
     private ?\DateTime $finFermeture = null;
 
     #[ORM\Column(length: 255, nullable: true)]

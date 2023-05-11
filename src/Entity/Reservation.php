@@ -24,8 +24,7 @@ class Reservation
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    #[Assert\DateTime(format: 'd/m/Y h:i:s')]
-    #[Groups(['read:book'])]
+    #[Assert\datetime(format: 'd/m/Y h:i:s')]
     private ?\DateTime $createdAt = null;
 
     #[ORM\Column(nullable: true, type: Types::DATETIME_MUTABLE)]
@@ -37,16 +36,14 @@ class Reservation
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    #[Assert\DateTime(format: 'd/m/Y h:i:s')]
-    //#[Assert\DateTime()]
-    #[Groups(['read:book', 'write:book'])]
+    //   #[Assert\datetime(format: 'd/m/Y h:i:s')]
+    #[Assert\datetime()]
     private ?\DateTime $dateReservation = null;
 
     #[ORM\Column]
     #[Assert\NotNull()]
     #[Assert\NotBlank()]
-    #[Groups(['read:book', 'write:book'])]
-    private ?int $nbConvive = 0;
+    private ?int $nbConvive = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\Length(255)]
@@ -59,12 +56,12 @@ class Reservation
     #[Groups(['read:book', 'write:book'])]
     private ?User $user = null;
 
-
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->modifiedAt = new \DateTime();
     }
+
 
     public function getId(): ?int
     {

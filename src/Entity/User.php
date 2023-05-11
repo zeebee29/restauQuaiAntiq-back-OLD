@@ -66,7 +66,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $tel = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['read:user', 'write:user'])]
     private ?int $nbConvive = null;
 
     #[ORM\Column(length: 500, nullable: true)]
